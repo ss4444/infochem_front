@@ -40,11 +40,18 @@ export default {
       }
       const file = new FormData();
       file.append('file', this.selectedFile)
-      axios.post('http://127.0.0.1:8000/upload_file', file, config).then(res=>{
-        console.log(res.data)
+      axios.post('http://10.82.244.70:8000/upload_file', file, config).then(res=>{
+        console.log(res.status)
+        if (res.status == 200){
         this.benz_92 = "92 бензин" + " " + res.data.benz_92 + "%"
         this.benz_95 = "95 бензин" + " " + res.data.benz_95 + "%"
         this.benz_98 = "98 бензин" + " " + res.data.benz_98 + "%"
+        }
+        if (res.status == 204) {
+          this.benz_92 = ""
+          this.benz_95 = "Не верный тип файла"
+          this.benz_98 = ""
+        }
       })
     }
   }
